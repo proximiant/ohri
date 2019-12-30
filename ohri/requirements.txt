@@ -1,0 +1,4 @@
+# git+https://da6ebc2516f04647ff2a7c0e979e3bffcb4b1c6c:x-oauth-basic@github.com/proximiant/common-utils.git@v0.5.2
+duckling==1.8.0
+
+
