@@ -2,7 +2,7 @@ import logging
 import os
 
 from ohri.hub.logger.duckling_logger import DucklingLogger
-from ohri.tool.duckling_tool import DucklingTool
+from ohri.tool.duckling.duckling_tool import DucklingTool
 from ohri.tool.performance.performance_tool import PerformanceTool
 
 FILE_PATH = os.path.realpath(__file__)

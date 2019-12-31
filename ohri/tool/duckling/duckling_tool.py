@@ -1,11 +1,15 @@
 import logging
 import os
+from datetime import datetime
 from functools import lru_cache
+from itertools import chain
 
 from duckling import DucklingWrapper
 from nose.tools import assert_is_not_none
 
 from ohri.hub.logger.duckling_logger import DucklingLogger
+from ohri.tool.collection.collection_tool import luniq, lmap
+from ohri.tool.json.json_tool import jdown
 from ohri.tool.performance.performance_tool import PerformanceTool
 
 FILE_PATH = os.path.realpath(__file__)
@@ -75,4 +79,45 @@ class DucklingTool:
         assert_is_not_none(f, {"str_in":str_in, "dim":dim})
 
         return f(str_in)
+
+    @classmethod
+    def parse2value(cls, p):
+        return jdown(p, ["value", "value"])
+
+    @classmethod
+    def _parse2other_list(cls, p):
+        other_list = jdown(p, ["value", "others"])
+        if not other_list:
+            return []
+
+        return [o.get("value") for o in other_list]
+
+    @classmethod
+    def parse2value_list(cls, p):
+        v = cls.parse2value(p)
+        other_list = cls._parse2other_list(p)
+        l = luniq(chain([v], other_list))
+        return l
+
+    # @classmethod
+    # def parse_list2value_list(cls, p_list):
+    #     return luniq(chain(*lmap(cls.parse2value_list, p_list)))
+
+    @classmethod
+    def value2norm_time(cls, v):
+        if not v:
+            return None
+
+        dt = datetime.fromisoformat(v)
+        return dt.time().isoformat()
+
+    @classmethod
+    def parse2norm_time_list(cls, parse):
+        value_list = DucklingTool.parse2value_list(parse)
+        time_list = luniq(filter(bool, map(cls.value2norm_time, value_list)))
+
+        parse_norm = parse.copy()
+        parse_norm.update({"value": time_list})
+        return parse_norm
+
 

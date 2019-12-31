@@ -6,7 +6,7 @@ FILE_DIR=$(dirname $FILE_PATH)
 
 
 main(){
-    python -m unittest ohri.tool.tests.test_duckling_tool.TestDucklingTool.test_02
+    python -m unittest ohri.tool.duckling.tests.test_duckling_tool.TestDucklingTool.test_03
 }
 
 main
