@@ -58,7 +58,7 @@ class LoggerTool:
 
 
 class DucklingLogger:
-    ROOTNAME = "davout"
+    ROOTNAME = "duckling"
 
     @classmethod
     def dirpath(cls): return LOG_DIR

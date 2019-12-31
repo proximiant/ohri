@@ -2,6 +2,8 @@ import logging
 import os
 from datetime import datetime
 from functools import lru_cache
+
+import dateutil.parser
 from itertools import chain
 
 from duckling import DucklingWrapper
@@ -108,7 +110,8 @@ class DucklingTool:
         if not v:
             return None
 
-        dt = datetime.fromisoformat(v)
+        dt = dateutil.parser.parse(v)
+        # dt = datetime.fromisoformat(v)
         return dt.time().isoformat()
 
     @classmethod
