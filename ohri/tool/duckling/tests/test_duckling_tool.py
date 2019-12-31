@@ -130,7 +130,7 @@ class TestDucklingTool(TestCase):
                 'end': 13,
                 'start': 0,
                 'text': 'five past ten',
-                'value': ['22:05:00', '10:05:00']}]
+                'value': ['10:05:00', '22:05:00',]}]
 
         # pprint(hyp2norm_time_list(hyp))
 

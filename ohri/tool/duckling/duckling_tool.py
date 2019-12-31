@@ -117,7 +117,7 @@ class DucklingTool:
     @classmethod
     def parse2norm_time_list(cls, parse):
         value_list = DucklingTool.parse2value_list(parse)
-        time_list = luniq(filter(bool, map(cls.value2norm_time, value_list)))
+        time_list = sorted(set(filter(bool, map(cls.value2norm_time, value_list))))
 
         parse_norm = parse.copy()
         parse_norm.update({"value": time_list})
