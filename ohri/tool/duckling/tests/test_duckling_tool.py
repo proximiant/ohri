@@ -57,7 +57,7 @@ class TestDucklingTool(TestCase):
 
         # pprint(hyp2norm_time_list(hyp))
 
-        self.assertEqual(hyp, ref)
+        self.assertEqual(hyp2norm_time_list(hyp), ref)
 
     @TestingTool.expected_failure_deco(reason="Alexa script variation support not expected")
     def test_03(self):
@@ -74,9 +74,9 @@ class TestDucklingTool(TestCase):
                 "end": 4,
                 "value": ['10:10:00', '22:10:00']}]
 
-        pprint(hyp2norm_time_list(hyp))
+        # pprint(hyp2norm_time_list(hyp))
 
-        self.assertEqual(hyp, ref)
+        self.assertEqual(hyp2norm_time_list(hyp), ref)
 
     def test_04(self):
         d = DucklingTool.duckling()
@@ -88,7 +88,7 @@ class TestDucklingTool(TestCase):
 
         # pprint(hyp2norm_time_list(hyp))
 
-        self.assertEqual(hyp, ref)
+        self.assertEqual(hyp2norm_time_list(hyp), ref)
 
     @TestingTool.expected_failure_deco(reason="'two thirty' type not supported")
     def test_05(self):
@@ -101,7 +101,7 @@ class TestDucklingTool(TestCase):
 
         # pprint(hyp2norm_time_list(hyp))
 
-        self.assertEqual(hyp, ref)
+        self.assertEqual(hyp2norm_time_list(hyp), ref)
 
     def test_06(self):
         d = DucklingTool.duckling()
@@ -117,7 +117,7 @@ class TestDucklingTool(TestCase):
 
         # pprint(hyp2norm_time_list(hyp))
 
-        self.assertEqual(hyp, ref)
+        self.assertEqual(hyp2norm_time_list(hyp), ref)
 
 
     def test_07(self):
@@ -134,7 +134,7 @@ class TestDucklingTool(TestCase):
 
         # pprint(hyp2norm_time_list(hyp))
 
-        self.assertEqual(hyp, ref)
+        self.assertEqual(hyp2norm_time_list(hyp), ref)
 
     """ timezone """
     def test_11(self):
@@ -326,6 +326,17 @@ class TestDucklingTool(TestCase):
                 'start': 0,
                 'text': 'third',
                 'value': {'value': 3}}]
+
+        # pprint(hyp)
+        self.assertEqual(hyp, ref)
+
+    @TestingTool.expected_failure_deco(reason="'one second'. 'second' is not ordinal")
+    def test_42(self):
+        d = DucklingTool.duckling()
+        hyp = DucklingTool.str_dim2parse(d,
+                                         "one second",
+                                         DucklingTool.Dim.ORDINAL, )
+        ref = []
 
         # pprint(hyp)
         self.assertEqual(hyp, ref)
